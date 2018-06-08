@@ -105,9 +105,10 @@ class InvisibleReCaptcha
         $html .= "_captchaSubmit=_captchaForm.querySelector('[type=submit]');";
         $html .= '_submitForm=function(){if(typeof _submitEvent==="function"){_submitEvent();';
         $html .= 'grecaptcha.reset();}else{_captchaForm.submit();}};';
-        $html .= "_captchaForm.addEventListener('submit',";
-        $html .= "function(e){e.preventDefault();if(typeof _beforeSubmit==='function'){";
-        $html .= "_execute=_beforeSubmit(e);}if(_execute){grecaptcha.execute();}});";
+
+        $html .= "jQuery(_captchaForm).on('submit',";
+        $html .= "function(event){event.preventDefault();grecaptcha.execute();});";
+
         if ($this->getOption('debug', false)) {
             $html .= $this->renderDebug();
         }
